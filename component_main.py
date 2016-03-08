@@ -15,7 +15,7 @@ class Component(ComponentAbstract):
 
     def __init__(self,component_name='plot_titan',
                 component_parent_dir=None, seed_dir=None):
-        self.version = '1.1.3'
+        self.version = '1.1.4'
         ## initialize ComponentAbstract
         super(Component, self).__init__(component_name,
                                         component_parent_dir, seed_dir)
@@ -29,8 +29,10 @@ class Component(ComponentAbstract):
         if chunk is not None:
             params = eval(chunk)
             num_clusters = params['num_clusters']
+            ploidy = params['ploidy']
         else:
             num_clusters = self.args.num_clusters
+            ploidy = self.args.ploidy
 
         if self.args.chr:
             if type(self.args.chr) is not list:
@@ -39,11 +41,11 @@ class Component(ComponentAbstract):
 
             chr = '"c('+ ','.join(chr)+')"'
             cmd_args = [self.args.obj_file, self.args.outdir, num_clusters, self.args.id,
-                        self.args.rid,chr]
+                        self.args.rid,chr, ploidy]
         else:
             chr = '"c(1:22,\'X\')"'
             cmd_args = [self.args.obj_file, self.args.outdir, num_clusters, self.args.id,
-                        self.args.rid, chr]
+                        self.args.rid, chr, ploidy]
 
 
         return cmd, cmd_args
